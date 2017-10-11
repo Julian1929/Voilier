@@ -34,13 +34,24 @@ sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 trame_reponse,addr = sock.recvfrom (13) #ligne de décodage des trames.
 
 
+
 print ""
 print "******REPONSE DU SERVEUR: ******"
+print ""
+print "trame du voilier :",trame_reponse.encode("hex")
 print "ID du systeme", ord (trame_reponse[0])
 print "Taille de la trame", ord (trame_reponse[1])
 print "VVENT", ord (trame_reponse[2])
 print "Direction du vent", ord (trame_reponse[3])
-print "gite du bateau", ord (trame_reponse[4])
+print " ";
+print  "lattitude:", (ord(trame_reponse[4])<<24)+(ord(trame_reponse[5])<<16)+(ord(trame_reponse[6])<<8)+(ord(trame_reponse[7])<<0);
+print " ";
+print "longitude:", (ord(trame_reponse[8])<<24)+(ord(trame_reponse[9])<<16)+(ord(trame_reponse[10])<<8)+(ord(trame_reponse[11])<<0); #le chiffre correspond à la place dans la trame
+print " ";
+print "gite du bateau", ord (trame_reponse[8])
+
+
+
 
 
 
