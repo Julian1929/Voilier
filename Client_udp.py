@@ -27,42 +27,57 @@ print "UDP target port:", UDP_PORT
 print "longeur du datagram : ", DATAGRAM
 print "ID du systeme : ", ID
 print "Taille de la trame : ", TAILLE
-print "Position du safran : ", SAFRAN, "Position de la grand voile : ", GV
+print "Position du safran : ", SAFRAN, "Position de la grand voile : ",GV
 
  
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
+print ""
+print "-----------------------------------------------"
+print "             REPONSE DU SERVEUR:               "
+print "-----------------------------------------------"
+print ""
 trame_reponse,addr = sock.recvfrom (13) #ligne de décodage des trames.
 
+b3=ord(trame_reponse[4])
+b2=ord(trame_reponse[5])
+b1=ord(trame_reponse[6])
+b0=ord(trame_reponse[7])
+
+lat = b3<<24 | b2<<16 | b1<<8 | b0
+if b3 > 127:
+    print "latitude negative"
+    lat=(~lat)&0XFFFFFFFF
+    lat=lat+1
+    lat=lat*(-1)
+lat_f=float(lat)/10000000
 
 b3=ord(trame_reponse[8])
 b2=ord(trame_reponse[9])
 b1=ord(trame_reponse[10])
 b0=ord(trame_reponse[11])
 
-long = b3<<24|b2<<16 | b1<<8|b0
+lon = b3<<24 | b2<<16 | b1<<8 | b0
 if b3 > 127:
-    long=(~long)&0XFFFFFFFF
-    long=long+1
-    long=long-1
+    print "longitude negative"
+    lon=(~lon)&0XFFFFFFFF
+    lon=lon+1
+    lon=lon*(-1)
+lon_f=float(lon)/10000000
 
 
-print ""
-print "-----------------------------------------------"
-print "             REPONSE DU SERVEUR:               "
-print "-----------------------------------------------"
-print ""
+
 print "trame du voilier :",trame_reponse.encode("hex")
 print "ID du systeme", ord (trame_reponse[0])
 print "Taille de la trame", ord (trame_reponse[1])
 print "VVENT", ord (trame_reponse[2])
 print "Direction du vent", ord (trame_reponse[3])
 print " ";
-print  "lattitude:", (ord(trame_reponse[4])<<24)+(ord(trame_reponse[5])<<16)+(ord(trame_reponse[6])<<8)+(ord(trame_reponse[7])<<0);
+print  "lattitude:", lat_f;
 print " ";
-print "longitude:", (ord(trame_reponse[8])<<24)+(ord(trame_reponse[9])<<16)+(ord(trame_reponse[10])<<8)+(ord(trame_reponse[11])<<0); #le chiffre correspond à la place dans la trame
+print "longitude:", lon_f; #le chiffre correspond à la place dans la trame
 print " ";
 print "gite du bateau", ord (trame_reponse[8])
 

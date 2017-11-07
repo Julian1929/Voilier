@@ -23,13 +23,15 @@ while True:
 
 # Définition de la Longitude et Lattitude.
 
-    lat = 1651782
+    lat_f = 48.409092
+    lat =int(lat_f*10000000)
     b3=(lat>>24)&0xFF
     b2=(lat>>16)&0xFF
     b1=(lat>>8)&0xFF
     b0=(lat>>0)&0xFF
 
-    lon = 1651745
+    lon_f = -4.486076
+    lon =int(lon_f*10000000)
     b7=(lon>>24)&0xFF
     b6=(lon>>16)&0xFF
     b5=(lon>>8)&0xFF
@@ -58,18 +60,20 @@ while True:
     print ""
     print ""
     print "Longitude et Lattitude"
+    print ""
     print "Lattitude", lat
     print ""
-    #print "Valeur en héxa de b3", hex(b3)
-    #print "Valeur en héxa de b2", hex(b2)
-    #print "Valeur en héxa de b1", hex(b1)
-    #print "Valeur en héxa de b0", hex(b0)
-
+    print "Valeur en hexa de b3", hex(b3)
+    print "Valeur en hexa de b2", hex(b2)
+    print "Valeur en hexa de b1", hex(b1)
+    print "Valeur en hexa de b0", hex(b0)
+    print ""
     print "Longitude", lon
-    #print "Valeur en héxa de b7", hex(b7)
-    #print "Valeur en héxa de b6", hex(b6)
-    #print "Valeur en héxa de b5", hex(b5)
-    #print "Valeur en héxa de b4", hex(b4)
+    print ""
+    print "Valeur en hexa de b7", hex(b7)
+    print "Valeur en hexa de b6", hex(b6)
+    print "Valeur en hexa de b5", hex(b5)
+    print "Valeur en hexa de b4", hex(b4)
 
 
 
