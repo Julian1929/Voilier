@@ -15,8 +15,11 @@ GV = 32
 
 MESSAGE = bytearray([ID,TAILLE,GV,SAFRAN]) #bytearray creer un tableau.
 
-print "",
-print "********************",
+print ""
+print "-----------------------------------------------"
+print "             DEMANDE AU SERVEUR                "
+print "-----------------------------------------------"
+print ""
 
 print "message:", MESSAGE
 print "UDP target IP:", UDP_IP
@@ -34,9 +37,22 @@ sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 trame_reponse,addr = sock.recvfrom (13) #ligne de décodage des trames.
 
 
+b3=ord(trame_reponse[8])
+b2=ord(trame_reponse[9])
+b1=ord(trame_reponse[10])
+b0=ord(trame_reponse[11])
+
+long = b3<<24|b2<<16 | b1<<8|b0
+if b3 > 127:
+    long=(~long)&0XFFFFFFFF
+    long=long+1
+    long=long-1
+
 
 print ""
-print "******REPONSE DU SERVEUR: ******"
+print "-----------------------------------------------"
+print "             REPONSE DU SERVEUR:               "
+print "-----------------------------------------------"
 print ""
 print "trame du voilier :",trame_reponse.encode("hex")
 print "ID du systeme", ord (trame_reponse[0])
@@ -51,11 +67,7 @@ print " ";
 print "gite du bateau", ord (trame_reponse[8])
 
 
-
-
-
-
-
-
-
+print "-----------------------------------------------"
+print "                 FIN DE TRAME                  "
+print "-----------------------------------------------"
     

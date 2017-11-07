@@ -29,7 +29,7 @@ while True:
     b1=(lat>>8)&0xFF
     b0=(lat>>0)&0xFF
 
-    lon = 1651782
+    lon = 1651745
     b7=(lon>>24)&0xFF
     b6=(lon>>16)&0xFF
     b5=(lon>>8)&0xFF
@@ -37,6 +37,11 @@ while True:
 
 
     data,addr = sock.recvfrom (13) #ligne de décodage des trames.
+    print ""
+    print "-----------------------------------------------"
+    print "     COORDONNER TRANSMIS PAR LE CLIENT         "
+    print "-----------------------------------------------"
+    print ""
     print "ID du systeme", ord (data[0])
     print "Taille de la trame", ord (data[1])
     print "Position de la GV", ord (data[2])
@@ -46,7 +51,10 @@ while True:
             
     sock.sendto(trame_reponse, addr)
 
-
+    print ""
+    print "-----------------------------------------------"
+    print "         REPONSE DU CLIENT AU SERVEUR          "
+    print "-----------------------------------------------"
     print ""
     print ""
     print "Longitude et Lattitude"
