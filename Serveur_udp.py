@@ -46,7 +46,7 @@ while True:
     print ""
     print "ID du systeme", ord (data[0])
     print "Taille de la trame", ord (data[1])
-    print "Position de la GV", ord (data[2])
+    print "Position de la grand voile", ord (data[2])
     print "Position du safran", ord (data[3])
 
     trame_reponse = bytearray([ID, TAILLE, VVENT, DVENT, b3,b2,b1,b0,b7,b6,b5,b4,GITE]) #bytearray creer un tableau.
